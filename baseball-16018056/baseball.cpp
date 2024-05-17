@@ -20,8 +20,28 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
+		else if (is2Strike0Ball(guessNumber)) {
+			return { false, 2, 0 };
+		}
+		else if (is1Strike2Ball(guessNumber)) {
+			return { false, 1, 2 };
+		}
 
 		return { false, 0, 0 };
+	}
+
+	bool is1Strike2Ball(const std::string& guessNumber)
+	{
+		return (guessNumber[0] == question[0] && guessNumber[1] == question[2] && guessNumber[2] == question[1])
+			|| (guessNumber[1] == question[1] && guessNumber[0] == question[2] && guessNumber[2] == question[0])
+			|| (guessNumber[2] == question[2] && guessNumber[0] == question[1] && guessNumber[1] == question[0]);
+	}
+
+	bool is2Strike0Ball(const std::string& guessNumber)
+	{
+		return (guessNumber[0] == question[0] && guessNumber[1] == question[1])
+			|| (guessNumber[0] == question[0] && guessNumber[2] == question[2])
+			|| (guessNumber[0] == question[0] && guessNumber[2] == question[2]);
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
