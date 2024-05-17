@@ -20,28 +20,25 @@ public:
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		else if (is2Strike0Ball(guessNumber)) {
-			return { false, 2, 0 };
-		}
-		else if (is1Strike2Ball(guessNumber)) {
-			return { false, 1, 2 };
-		}
-
-		return { false, 0, 0 };
+		int strikes = 0;
+		int balls = 0;
+		countStrikesAndBalls(guessNumber, strikes, balls);
+		return { false, strikes, balls };
 	}
 
-	bool is1Strike2Ball(const std::string& guessNumber)
+	void countStrikesAndBalls(const std::string& guessNumber, int& strikes, int& balls)
 	{
-		return (guessNumber[0] == question[0] && guessNumber[1] == question[2] && guessNumber[2] == question[1])
-			|| (guessNumber[1] == question[1] && guessNumber[0] == question[2] && guessNumber[2] == question[0])
-			|| (guessNumber[2] == question[2] && guessNumber[0] == question[1] && guessNumber[1] == question[0]);
-	}
-
-	bool is2Strike0Ball(const std::string& guessNumber)
-	{
-		return (guessNumber[0] == question[0] && guessNumber[1] == question[1])
-			|| (guessNumber[0] == question[0] && guessNumber[2] == question[2])
-			|| (guessNumber[0] == question[0] && guessNumber[2] == question[2]);
+		for (int i = 0; i < guessNumber.length(); i++) {
+			for (int j = 0; j < question.length(); j++) {
+				if (guessNumber[i] != question[j])
+					continue;
+				if (i == j)
+					strikes++;
+				else
+					balls++;
+				break;
+			}
+		}
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
