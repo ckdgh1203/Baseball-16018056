@@ -3,5 +3,5 @@
 
 TEST(BaseballGame, TryGameTest) {
   EXPECT_EQ(1, 1);
-  EXPECT_TRUE(true);
+  EXPECT_EQ(2, 2);
 }
